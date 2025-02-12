@@ -1,0 +1,66 @@
+<div
+  class="flex h-full min-h-screen w-full flex-col items-center justify-center bg-gray-200 dark:bg-gray-800"
+>
+  <div
+    class="flex w-full items-center justify-center text-2xl text-gray-800 sm:w-full md:w-full lg:w-full lg:text-4xl xl:w-4/5 dark:text-gray-200"
+  >
+    生肖对对碰
+  </div>
+  <div
+    class="mt-5 flex h-full w-full flex-wrap items-center justify-center sm:w-full md:w-full lg:w-full xl:w-4/5"
+  >
+    <div
+      class="flex h-[720px] w-full items-center justify-center px-5 py-5 md:w-9/10 xl:w-3/5"
+    >
+      <div
+        class="flex h-full w-full flex-col items-center justify-center rounded-md border border-solid border-gray-100 bg-stone-50 dark:border-gray-500 dark:bg-gray-600"
+      >
+        <div class="my-3 flex w-full flex-col items-center justify-center">
+          <div class="-mt-10 mb-10 text-base text-gray-800 dark:text-gray-200">
+            步数：
+          </div>
+          <div class="grid grid-cols-6 gap-2">
+            @for (zodiac of zodiacList(); track $index; let idx = $index) {
+              <app-zodiac-card
+                [zodiac]="zodiac"
+                (onClick)="clickCell(idx, zodiac)"
+              ></app-zodiac-card>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="flex h-[720px] w-full items-center justify-center px-5 py-5 font-serif md:w-9/10 xl:w-2/5"
+    >
+      <div
+        class="flex h-full w-full flex-col items-start justify-start rounded-md border border-solid border-gray-300 bg-white text-gray-700 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-200"
+      >
+        @if (zodiac) {
+          <div
+            class="mt-5 flex w-full items-center justify-center text-3xl text-gray-700 dark:text-gray-300"
+          >
+            {{ zodiac.terrestrial }}({{ zodiac.zodiac }})
+          </div>
+          <div class="flex w-full items-center justify-center">
+            <div
+              class="mt-2 w-9/10 border-b-2 border-solid border-gray-300 dark:border-gray-600"
+            ></div>
+          </div>
+          <div class="w-full p-8">
+            <div class="my-5 w-full">
+              <div class="text-2xl">地支：{{ zodiac.terrestrial }}</div>
+            </div>
+            <div class="my-5 w-full">
+              <div class="text-2xl">生肖：{{ zodiac.zodiac }}</div>
+            </div>
+            <div class="my-5 w-full">
+              <div class="text-2xl">文化说明：</div>
+              <div class="my-2 text-xl">{{ zodiac.desc }}</div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="h-28 w-21 select-none">
+  <div class="flex h-full w-full items-center justify-center rounded-md">
+    @if (zodiac.isOpen) {
+      @if (zodiac.isPinned) {
+        <img class="h-full w-full rounded-md" [src]="zodiac.img" />
+      } @else {
+        @if (zodiac.showTerrestrial) {
+          <span
+            class="flex h-full w-full items-center justify-center rounded-md bg-yellow-950 font-serif text-5xl text-yellow-400"
+            >{{ zodiac.terrestrial }}</span
+          >
+        } @else {
+          <img class="h-full w-full rounded-md" [src]="zodiac.img" />
+        }
+      }
+    } @else {
+      <div class="cursor-pointer" (click)="click()">
+        <app-zodiac-card-bg></app-zodiac-card-bg>
+      </div>
+    }
+  </div>
+</div>
