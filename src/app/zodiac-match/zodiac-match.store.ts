@@ -12,7 +12,13 @@ export class ZodiacMatchStore {
   private _zodiacList = signal<ZodiacCard[]>([]);
   // 第一次已经选中的卡牌
   private _selectedIdx = signal(-1);
+  // 记录当前配对的卡牌，用于右侧信息的显示
+  private _zodiacInfo = signal<ZodiacCard | null>(null);
+  // 操作步骤数
+  private _steps = signal(0);
 
+  readonly setps = this._steps.asReadonly();
+  readonly zodiacInfo = this._zodiacInfo.asReadonly();
   readonly zodiacList = this._zodiacList.asReadonly();
   readonly selectedIdx = this._selectedIdx.asReadonly();
   readonly selectedZodiac = computed(() => {
@@ -21,6 +27,9 @@ export class ZodiacMatchStore {
       return null;
     }
     return this.zodiacList()[idx];
+  });
+  readonly isCompleted = computed(() => {
+    return this.zodiacList().every(v => v.isPinned);
   });
 
   // 初始化卡牌
@@ -53,9 +62,26 @@ export class ZodiacMatchStore {
     });
   }
 
+  updateZodiacInfo(zodiac: ZodiacCard | null) {
+    if (zodiac) {
+      this._zodiacInfo.set({ ...zodiac });
+    } else {
+      this._zodiacInfo.set(null);
+    }
+  }
+
   updateSelectedIdx(idx: number) {
     this._selectedIdx.set(idx);
   }
+
+  resetSteps() {
+    this._steps.set(0);
+  }
+
+  increaseSteps() {
+    this._steps.update(v => v + 1);
+  }
+
 
   resetSelectedIdx() {
     this._selectedIdx.set(-1);

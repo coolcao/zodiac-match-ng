@@ -3,6 +3,7 @@ import { Component, computed, effect, inject, linkedSignal, OnInit, signal, Sign
 import { ZodiacMatchStore } from '../zodiac-match.store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ZodiacCard } from '../zodiac-match.types';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-zodiac-match-board',
@@ -16,13 +17,21 @@ export class ZodiacMatchBoardComponent implements OnInit {
   route = inject(ActivatedRoute);
   router = inject(Router);
   constructor() {
+    effect(() => {
+      this.showSuccess = true;
+      timer(3000).subscribe(() => this.showSuccess = false);
+    });
   }
 
   zodiacList = this.store.zodiacList;
   selectedIdx = this.store.selectedIdx;
   selectedZodiac = this.store.selectedZodiac;
 
-  zodiac: ZodiacCard | null = null;
+  zodiac = this.store.zodiacInfo;
+
+  steps = this.store.setps;
+  isCompleted = this.store.isCompleted;
+  showSuccess = false;
 
 
   ngOnInit(): void {
@@ -35,6 +44,8 @@ export class ZodiacMatchBoardComponent implements OnInit {
     }
     zodiac.isOpen = true;
     this.store.updateZodiac(idx, zodiac);
+
+    this.store.increaseSteps();
 
     if (this.selectedIdx() == -1) {
       this.store.updateSelectedIdx(idx);
@@ -53,7 +64,7 @@ export class ZodiacMatchBoardComponent implements OnInit {
         this.store.updateZodiac(this.selectedIdx(), selected);
         this.store.resetSelectedIdx();
 
-        this.zodiac = zodiac;
+        this.store.updateZodiacInfo(zodiac);
 
       } else {
         // 不匹配
@@ -63,8 +74,8 @@ export class ZodiacMatchBoardComponent implements OnInit {
           selected.isOpen = false;
           this.store.updateZodiac(this.selectedIdx(), selected);
           this.store.resetSelectedIdx();
-        }, 1000);
-        this.zodiac = null;
+        }, 700);
+        this.store.updateZodiacInfo(null);
       }
 
     }
