@@ -18,8 +18,10 @@ export class ZodiacMatchBoardComponent implements OnInit {
   router = inject(Router);
   constructor() {
     effect(() => {
-      this.showSuccess = true;
-      timer(3000).subscribe(() => this.showSuccess = false);
+      if (this.isCompleted()) {
+        this.showSuccess = true;
+        timer(3000).subscribe(() => this.showSuccess = false);
+      }
     });
   }
 

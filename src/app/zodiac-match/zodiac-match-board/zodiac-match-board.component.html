@@ -59,6 +59,16 @@
               <div class="my-2 text-base">{{ zodiac()!.desc }}</div>
             </div>
           </div>
+        } @else if (selectedZodiac()) {
+          <div
+            class="mt-5 flex w-full items-center justify-center text-3xl text-gray-700 dark:text-gray-300"
+          >
+            @if (selectedZodiac()?.showTerrestrial) {
+              {{ selectedZodiac()!.terrestrial }}
+            } @else {
+              {{ selectedZodiac()!.zodiac }}
+            }
+          </div>
         } @else {
           <div
             class="mt-5 flex h-full w-full items-center justify-center text-xl text-gray-400"
