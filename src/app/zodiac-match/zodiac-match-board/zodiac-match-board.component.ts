@@ -4,6 +4,7 @@ import { ZodiacMatchStore } from '../zodiac-match.store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ZodiacCard } from '../zodiac-match.types';
 import { timer } from 'rxjs';
+import { ImagePreloaderService } from '../image-preloader.service';
 
 @Component({
   selector: 'app-zodiac-match-board',
@@ -16,6 +17,7 @@ export class ZodiacMatchBoardComponent implements OnInit {
   store = inject(ZodiacMatchStore);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  imgPreLoader = inject(ImagePreloaderService);
   constructor() {
     effect(() => {
       if (this.isCompleted()) {
@@ -40,6 +42,7 @@ export class ZodiacMatchBoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.init();
+    this.preLoadImage();
   }
 
   clickCell(idx: number, zodiac: ZodiacCard) {
@@ -90,6 +93,20 @@ export class ZodiacMatchBoardComponent implements OnInit {
       }
     }
 
+  }
+
+  private preLoadImage() {
+    const images = this.zodiacList().map(v => v.img);
+    if (!images || images.length === 0) {
+      return;
+    }
+    this.imgPreLoader.preloadImages(images).then((success) => {
+      if (success) {
+        console.log('所有图片已成功预加载');
+      } else {
+        console.error('图片预加载失败');
+      }
+    });
   }
 
 }
