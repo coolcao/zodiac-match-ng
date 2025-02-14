@@ -1,0 +1,62 @@
+<div
+  class="fixed top-0 left-0 z-50 flex h-full w-full items-center justify-center text-gray-200 backdrop-blur-2xl"
+>
+  <button
+    class="absolute top-5 right-5 cursor-pointer text-gray-800 dark:text-gray-200"
+    (click)="closeHelp()"
+  >
+    关闭
+  </button>
+  <div
+    class="mx-2 my-2 flex max-h-[960px] min-h-[640px] w-full max-w-[1200px] min-w-[460px] flex-col items-start justify-start overflow-y-auto rounded-2xl bg-gray-300 p-10 dark:bg-gray-600"
+  >
+    <div class="text-3xl text-gray-800 dark:text-gray-100">游戏目标：</div>
+    <div class="mt-3 pl-5 text-xl text-gray-800 dark:text-gray-200">
+      在这款卡牌配对游戏中，玩家需要将24张卡牌中的12张生肖卡与12张地支卡进行配对。每一张生肖卡对应一张地支卡，配对成功后，卡牌将固定在正确的位置，并展示相关的文化信息。玩家的目标是通过最少的操作步骤，将所有卡牌配对完成。
+    </div>
+    <div class="mt-5 text-3xl text-gray-800 dark:text-gray-100">游戏规则：</div>
+    <div class="mt-3 pl-5 text-base text-gray-800 dark:text-gray-200">
+      <div class="text-2xl">1. 卡牌布局</div>
+      <div>游戏开始时，24张卡牌均面朝下，玩家无法看到卡牌的内容。</div>
+      <div>这24张卡牌中有12张是生肖的图片卡，12张是对应的地支名称卡。</div>
+      <div class="mt-1 text-2xl">2. 操作方式</div>
+      <div>
+        玩家点击任意一张卡牌，卡牌将会翻开，展示卡牌上的内容（生肖或地支）。
+      </div>
+      <div>玩家可以继续点击另一张卡牌来查看它的内容。</div>
+      <div>
+        如果玩家翻开的两张卡牌内容匹配（例如一张生肖卡和对应的地支卡），则这两张卡牌配对成功，并会固定在正确位置，同时显示该生肖和地支的文化信息。
+      </div>
+      <div>如果两张卡牌不匹配，它们将会被翻回，玩家可以继续尝试。</div>
+      <div class="mt-1 text-2xl">3. 配对成功</div>
+      <div>
+        每次配对成功，卡牌会固定在桌面上，并展示与该生肖和地支相关的文化信息（如对应年份、传统习俗等）。
+      </div>
+      <div>游戏会记录玩家的操作步骤数，每一步翻开卡牌都算作一次步骤。</div>
+      <div class="mt-1 text-2xl">4. 胜利条件</div>
+      <div>
+        游戏的目标是将所有24张卡牌配对成功，游戏完成时，玩家应该通过最小的步骤数完成所有配对。
+      </div>
+      <div>
+        完成所有配对后，系统会显示玩家的配对结果和总步骤数，玩家可以挑战自己以减少操作步骤，争取更好的成绩。
+      </div>
+    </div>
+    <div class="mt-5 text-3xl text-gray-800 dark:text-gray-100">
+      提示和建议：
+    </div>
+    <div class="mt-3 pl-5 text-base text-gray-800 dark:text-gray-200">
+      <div>
+        <span class="font-bold">记忆是关键：</span
+        >在游戏过程中，玩家需要尽量记住已经翻开的卡牌的位置，以减少不必要的重复操作。
+      </div>
+      <div>
+        <span class="font-bold">尝试配对相邻卡牌：</span
+        >如果玩家翻开了生肖卡，可以尝试查找它附近的地支卡。利用记忆力和逻辑思维尽量减少翻动的卡牌数量。
+      </div>
+      <div>
+        <span class="font-bold">文化信息展示：</span
+        >每次配对成功时，系统会展示生肖和地支的文化信息，玩家可以在娱乐的同时了解更多的传统文化知识。
+      </div>
+    </div>
+  </div>
+</div>

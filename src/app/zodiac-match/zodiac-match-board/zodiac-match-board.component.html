@@ -5,6 +5,10 @@
     class="flex w-full items-center justify-center text-2xl text-gray-800 sm:w-full md:w-full lg:w-full lg:text-4xl xl:w-4/5 dark:text-gray-200"
   >
     生肖对对碰
+    <div class="cursor-help" (click)="showHelp = true">
+      <img class="block dark:hidden" src="assets/icon/help.day.svg" />
+      <img class="hidden dark:block" src="assets/icon/help.night.svg" />
+    </div>
   </div>
   <div
     class="mt-5 flex h-full w-full flex-wrap items-center justify-center sm:w-full md:w-full lg:w-full xl:w-4/5"
@@ -83,4 +87,8 @@
 
 @if (showSuccess) {
   <app-scatter-flowers></app-scatter-flowers>
+}
+
+@if (showHelp) {
+  <app-help (close)="showHelp = false"></app-help>
 }

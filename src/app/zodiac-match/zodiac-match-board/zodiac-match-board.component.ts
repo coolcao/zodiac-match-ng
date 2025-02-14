@@ -35,6 +35,7 @@ export class ZodiacMatchBoardComponent implements OnInit {
   isCompleted = this.store.isCompleted;
   openNotPinedCount = this.store.openNotPinedCount;
   showSuccess = false;
+  showHelp = false;
 
 
   ngOnInit(): void {
