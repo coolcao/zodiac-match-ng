@@ -32,6 +32,10 @@ export class ZodiacMatchStore {
     return this.zodiacList().every(v => v.isPinned);
   });
 
+  readonly openNotPinedCount = computed(() => {
+    return this.zodiacList().filter(v => v.isOpen && !v.isPinned).length;
+  });
+
   // 初始化卡牌
   init() {
     const size = 24;

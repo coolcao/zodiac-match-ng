@@ -33,6 +33,7 @@ export class ZodiacMatchBoardComponent implements OnInit {
 
   steps = this.store.setps;
   isCompleted = this.store.isCompleted;
+  openNotPinedCount = this.store.openNotPinedCount;
   showSuccess = false;
 
 
@@ -44,15 +45,22 @@ export class ZodiacMatchBoardComponent implements OnInit {
     if (zodiac.isPinned || zodiac.isOpen) {
       return;
     }
+
+    // 如果打开牌数为偶数，则暂停继续开牌，需要进行对比
+    if (this.openNotPinedCount() === 2) {
+      return;
+    }
+
     zodiac.isOpen = true;
     this.store.updateZodiac(idx, zodiac);
 
     this.store.increaseSteps();
 
-    if (this.selectedIdx() == -1) {
+    // 如果打开牌数为奇数或第一次开牌，则继续开牌
+    if (this.openNotPinedCount() === 0 || this.openNotPinedCount() === 1) {
       this.store.updateSelectedIdx(idx);
     } else {
-      // 比较
+      // 如果有偶数张牌已开，需要进行对比
       const selected = this.zodiacList()[this.selectedIdx()];
       if (!selected) {
         console.error('数据错误');
@@ -79,8 +87,8 @@ export class ZodiacMatchBoardComponent implements OnInit {
         }, 700);
         this.store.updateZodiacInfo(null);
       }
-
     }
+
   }
 
 }
