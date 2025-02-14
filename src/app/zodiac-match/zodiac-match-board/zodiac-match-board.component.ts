@@ -38,7 +38,7 @@ export class ZodiacMatchBoardComponent implements OnInit {
   openNotPinedCount = this.store.openNotPinedCount;
   showSuccess = false;
   showHelp = false;
-
+  resourceLoading = false;
 
   ngOnInit(): void {
     this.store.init();
@@ -96,14 +96,17 @@ export class ZodiacMatchBoardComponent implements OnInit {
   }
 
   private preLoadImage() {
+    this.resourceLoading = true;
     const images = this.zodiacList().map(v => v.img);
     if (!images || images.length === 0) {
       return;
     }
     this.imgPreLoader.preloadImages(images).then((success) => {
       if (success) {
+        this.resourceLoading = false;
         console.log('所有图片已成功预加载');
       } else {
+        alert('图片预加载失败');
         console.error('图片预加载失败');
       }
     });

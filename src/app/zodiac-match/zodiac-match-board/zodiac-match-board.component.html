@@ -1,4 +1,5 @@
 <div
+  *ngIf="!resourceLoading"
   class="flex h-full min-h-screen w-full flex-col items-center justify-center bg-gray-200 dark:bg-gray-800"
 >
   <div
@@ -82,6 +83,15 @@
         }
       </div>
     </div>
+  </div>
+</div>
+
+<div
+  *ngIf="resourceLoading"
+  class="flex h-full min-h-screen w-full flex-col items-center justify-center bg-gray-200 dark:bg-gray-800"
+>
+  <div class="text-base text-gray-600 dark:text-gray-300">
+    <div class="loader"></div>
   </div>
 </div>
 
