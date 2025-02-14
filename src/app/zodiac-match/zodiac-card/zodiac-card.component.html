@@ -3,12 +3,21 @@
     @if (zodiac.isOpen || zodiac.isPinned) {
       @if (zodiac.showTerrestrial) {
         <span
-          class="beizhuan flex h-full w-full items-center justify-center rounded-md bg-yellow-950 text-6xl text-yellow-400"
+          class="beizhuan flex h-full w-full items-center justify-center rounded-md text-6xl text-yellow-400"
           [ngClass]="{
             'brightness-75': !zodiac.isPinned,
           }"
-          >{{ zodiac.terrestrial }}</span
         >
+          <div
+            class="flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-md bg-gradient-to-br from-yellow-400 to-yellow-600 shadow-lg"
+          >
+            <div
+              class="flex flex-1 items-center justify-center text-center font-bold text-white"
+            >
+              {{ zodiac.terrestrial }}
+            </div>
+          </div>
+        </span>
       } @else {
         <img
           [ngClass]="{ 'brightness-75': !zodiac.isPinned }"
