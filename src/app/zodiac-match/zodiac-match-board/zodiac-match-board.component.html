@@ -1,84 +1,103 @@
 <div
   *ngIf="!resourceLoading"
-  class="flex h-full min-h-screen w-full flex-col items-center justify-center bg-gray-200 dark:bg-gray-800"
+  class="flex h-full min-h-screen w-full flex-col items-center justify-center bg-gray-50 dark:bg-gray-900"
 >
   <div
-    class="flex w-full items-center justify-center text-2xl text-gray-800 sm:w-full md:w-full lg:w-full lg:text-4xl xl:w-4/5 dark:text-gray-200"
+    class="flex w-full items-center justify-center space-x-4 py-8 text-3xl font-medium text-gray-800 sm:text-4xl md:text-4xl lg:text-5xl dark:text-gray-100"
   >
-    生肖对对碰
-    <div class="cursor-help" (click)="showHelp = true">
-      <img class="block dark:hidden" src="assets/icon/help.day.svg" />
-      <img class="hidden dark:block" src="assets/icon/help.night.svg" />
+    <span
+      class="bg-gradient-to-r from-cyan-600 via-sky-500 to-cyan-600 bg-clip-text text-transparent"
+    >
+      生肖对对碰
+    </span>
+    <div
+      class="cursor-help transition-transform hover:scale-110"
+      (click)="showHelp = true"
+    >
+      <img class="block h-8 w-8 dark:hidden" src="assets/icon/help.day.svg" />
+      <img class="hidden h-8 w-8 dark:block" src="assets/icon/help.night.svg" />
     </div>
   </div>
+
   <div
-    class="mt-5 flex h-full w-full flex-wrap items-center justify-center sm:w-full md:w-full lg:w-full xl:w-4/5"
+    class="flex h-full w-full max-w-7xl flex-wrap items-stretch justify-center p-4"
   >
-    <div
-      class="flex h-[720px] w-full items-center justify-center px-5 py-5 md:w-9/10 xl:w-3/5"
-    >
+    <!-- 游戏区域 -->
+    <div class="h-[720px] w-full p-4 lg:w-7/12 xl:w-8/12">
       <div
-        class="flex h-full w-full flex-col items-center justify-center rounded-md border border-solid border-gray-100 bg-stone-50 dark:border-gray-500 dark:bg-gray-600"
+        class="flex h-full w-full flex-col items-center justify-center rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
       >
-        <div class="my-3 flex w-full flex-col items-center justify-center">
-          <div class="-mt-10 mb-10 text-base text-gray-800 dark:text-gray-200">
-            步数： {{ steps() }} 步
-          </div>
-          <div class="grid grid-cols-6 gap-2">
-            @for (zodiac of zodiacList(); track $index; let idx = $index) {
-              <app-zodiac-card
-                [zodiac]="zodiac"
-                (onClick)="clickCell(idx, zodiac)"
-              ></app-zodiac-card>
-            }
-          </div>
+        <div
+          class="mb-5 w-full px-6 text-right text-lg font-semibold text-gray-600 dark:text-gray-300"
+        >
+          步数：{{ steps() }} 步
+        </div>
+        <div class="grid w-full max-w-2xl grid-cols-6 gap-3 p-4">
+          @for (zodiac of zodiacList(); track $index; let idx = $index) {
+            <app-zodiac-card
+              [zodiac]="zodiac"
+              (onClick)="clickCell(idx, zodiac)"
+            ></app-zodiac-card>
+          }
         </div>
       </div>
     </div>
-    <div
-      class="flex h-[720px] w-full items-center justify-center px-5 py-5 font-serif md:w-9/10 xl:w-2/5"
-    >
+
+    <!-- 信息面板 -->
+    <div class="h-[720px] w-full p-4 font-serif lg:w-5/12 xl:w-4/12">
       <div
-        class="flex h-full w-full flex-col items-start justify-start rounded-md border border-solid border-gray-300 bg-white text-gray-700 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-200"
+        class="flex h-full w-full flex-col rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
       >
         @if (zodiac() && openNotPinedCount() == 0) {
-          <div
-            class="mt-5 flex w-full items-center justify-center text-3xl text-gray-700 dark:text-gray-300"
-          >
-            {{ zodiac()!.terrestrial }}({{ zodiac()!.zodiac }})
-          </div>
-          <div class="flex w-full items-center justify-center">
-            <div
-              class="mt-2 w-9/10 border-b-2 border-solid border-gray-300 dark:border-gray-600"
-            ></div>
-          </div>
-          <div class="w-full p-8">
-            <div class="my-5 w-full">
-              <div class="text-2xl">地支：{{ zodiac()!.terrestrial }}</div>
-            </div>
-            <div class="my-5 w-full">
-              <div class="text-2xl">生肖：{{ zodiac()!.zodiac }}</div>
-            </div>
-            <div class="my-5 w-full">
-              <div class="text-2xl">文化说明：</div>
-              <div class="my-2 text-base">{{ zodiac()!.desc }}</div>
+          <div class="px-6 pt-6">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+              {{ zodiac()!.terrestrial }}（{{ zodiac()!.zodiac }}）
+            </h2>
+            <div class="my-4 h-px bg-gray-200 dark:bg-gray-700"></div>
+            <div class="space-y-6 text-gray-600 dark:text-gray-300">
+              <div>
+                <h3 class="text-lg font-semibold">地支</h3>
+                <!-- 添加渐变背景和阴影效果以突出显示 -->
+                <p
+                  class="mt-1 bg-gradient-to-r from-yellow-600 to-orange-800 bg-clip-text text-2xl text-transparent drop-shadow-lg dark:from-yellow-400 dark:to-orange-500"
+                >
+                  {{ zodiac()!.terrestrial }}
+                </p>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold">生肖</h3>
+                <!-- 添加渐变背景和阴影效果以突出显示 -->
+                <p
+                  class="mt-1 bg-gradient-to-r from-yellow-600 to-orange-800 bg-clip-text text-2xl text-transparent drop-shadow-lg dark:from-yellow-400 dark:to-orange-500"
+                >
+                  {{ zodiac()!.zodiac }}
+                </p>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold">文化说明</h3>
+                <p
+                  class="mt-1 rounded bg-gray-100 p-5 text-justify leading-relaxed dark:bg-gray-700"
+                >
+                  {{ zodiac()!.desc }}
+                </p>
+              </div>
             </div>
           </div>
         } @else if (selectedZodiac() && openNotPinedCount() != 0) {
-          <div
-            class="mt-5 flex w-full items-center justify-center text-3xl text-gray-700 dark:text-gray-300"
-          >
-            @if (selectedZodiac()?.showTerrestrial) {
-              {{ selectedZodiac()!.terrestrial }}
-            } @else {
-              {{ selectedZodiac()!.zodiac }}
-            }
+          <div class="flex h-full items-center justify-center p-6">
+            <p class="text-4xl font-bold text-gray-700 dark:text-gray-200">
+              @if (selectedZodiac()?.showTerrestrial) {
+                {{ selectedZodiac()!.terrestrial }}
+              } @else {
+                {{ selectedZodiac()!.zodiac }}
+              }
+            </p>
           </div>
         } @else {
-          <div
-            class="mt-5 flex h-full w-full items-center justify-center text-xl text-gray-400"
-          >
-            匹配成功后，生肖信息将显示在这里
+          <div class="flex h-full items-center justify-center p-6">
+            <p class="text-xl text-gray-400 dark:text-gray-500">
+              匹配成功后，生肖信息将显示在这里
+            </p>
           </div>
         }
       </div>
@@ -88,11 +107,11 @@
 
 <div
   *ngIf="resourceLoading"
-  class="flex h-full min-h-screen w-full flex-col items-center justify-center bg-gray-200 dark:bg-gray-800"
+  class="flex h-full min-h-screen w-full flex-col items-center justify-center bg-gray-50 dark:bg-gray-900"
 >
-  <div class="text-base text-gray-600 dark:text-gray-300">
-    <div class="loader"></div>
-  </div>
+  <div
+    class="h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"
+  ></div>
 </div>
 
 @if (showSuccess) {
